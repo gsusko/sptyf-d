@@ -10,64 +10,119 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      playing: false,
+      currentTime: 0,
+      song: new Audio("https://p.scdn.co/mp3-preview/f4d37e76a08217cea4ca748d7dacc321bc531ef0?cid=8897482848704f2a8f8d7c79726a70d4")
     }
   }
 
   componentDidMount() {
-    this.handleSearch('to the top');
+    this.handleTrackSearch('swimming pools');
   }
 
   //search function
-  handleSearch(query) {
+  handleTrackSearch(query) {
     //call get request on API
     var options = {
       q: query,
       artist: 'kendrick'
     }
-    var accessToken = "BQClxkwnjrhHxWqinetkaSdDdAVi06oJw7jgWm7d2s1Ef8DAoL2yaQF3K9Okeo0B_N5Zmw6U76zLRrs6uwMPEIk1TOMZpceyokXW1ibJOiw3FtGnzh27JYdevzA6mlXuJEFLkIyp_JrJdVM";
+    var accessToken = "BQA57VemVOXXNdcAQrKHLeLSSRS0rGUQKxMr-_ltNek0CbunJQWuz_rfFKU4dKVnhAi4hmMmP7IRb5pDUG7ZcB4kak-VDHXPhHXfxmdEm12pdv1Hr9meJLeMaB-VNZJ7yfStLj2GQ3T5WcE";
     var context = this;
     $.ajax({
         url: 'https://api.spotify.com/v1/search',
         data: {
             q: query,
             type: 'track',
-            preview_url: 'true'
+            preview_url: 'true',
+            limit: 20
         },
         headers: {
          'Authorization': 'Bearer ' + accessToken
        },
         success: function (data) {
-            console.log(data)
+            var items = data.tracks.items;
+            var results = [];
+            items.forEach(function(item) {
+              if (item.preview_url && results.length < 5) {
+                results.push(item);
+              }
+            });
             context.setState({
-              items: data.tracks.items
+              items: results
             });
         }
     });
   }
 
-  retrieve() {
-    $.ajax({
-      url: '/items',
-      success: (data) => {
-        console.log('success');
-        // this.setState({
-        //   items: data
-        // })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+  handlePlayButton(url) {
+    var audio = new Audio(url);
+    console.log(audio.src === this.state.song.src);
+    if (!this.state.playing) {
+      Promise.resolve(this.setState({
+        song: audio,
+        playing: true
+
+      }))
+      .then(() => {
+        this.state.song.play();
+      })
+    }
   }
+
+  handlePauseButton() {
+    if (this.state.playing) {
+      Promise.resolve(this.setState({
+        currentTime: this.state.song.currentTime,
+        playing: false
+      }))
+      .then(() => {
+        this.state.song.pause();
+      })
+    } else {
+      Promise.resolve(this.setState({
+        playing: true
+      }))
+      .then(() => {
+        this.state.song.play();
+      })
+    }
+  }
+
+  handleStopButton() {
+    if (this.state.playing) {
+      Promise.resolve(this.setState({
+        currentTime: this.state.song.currentTime,
+        playing: false
+      }))
+      .then(() => {
+        this.state.song.pause();
+      })
+    }
+  }
+  // retrieve() {
+  //   $.ajax({
+  //     url: '/items',
+  //     success: (data) => {
+  //       console.log('success');
+  //       // this.setState({
+  //       //   items: data
+  //       // })
+  //     },
+  //     error: (err) => {
+  //       console.log('err', err);
+  //     }
+  //   });
+  // }
 
   render () {
     return (
       <div>
       <h1>Spotify Player</h1>
-      <div><Search handleSearch={this.handleSearch.bind(this)}/></div>
+      <div><Search handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
       <div><Voice/></div>
-      <div><List items={this.state.items}/></div>
+      <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
     </div>
   )
   }

@@ -4,7 +4,13 @@ const ListItem = (props) => {
   console.log(props)
   return (
     <div>
-      { props.item.album.images[0].url}
+      <div>
+        <span>{props.item.name} by {props.item.artists[0].name}</span>
+        <span><button onClick={() => {props.handlePlayButton(props.item.preview_url)}}>Play</button></span>
+        <span><button onClick={() => {props.handlePauseButton()}}>Pause</button></span>
+        <span><button onClick={() => {props.handleStopButton()}}>Stop</button></span>
+      </div>
+      <span><img src={props.item.album.images[2].url}/></span>
     </div>
   );
 };
