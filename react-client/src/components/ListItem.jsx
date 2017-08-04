@@ -1,9 +1,12 @@
 import React from 'react';
 
-const ListItem = (props) => (
-  <div>
-    { props.item.description }
-  </div>
-)
+const ListItem = (props) => {
+  console.log(props)
+  return (
+    <div>
+      { props.item.album.images[0].url}
+    </div>
+  );
+};
 
 export default ListItem;

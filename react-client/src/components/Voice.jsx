@@ -1,8 +1,10 @@
 import React from 'react';
 
 const Voice = (props) => (
-  <div>
-    Voice
+  <div className="voice-bar">
+    <button>
+      <span>Voice</span>
+    </button>
   </div>
 )
 
