@@ -58,7 +58,15 @@ class App extends React.Component {
 
   handlePlayButton(url) {
     var audio = new Audio(url);
-    console.log(audio.src === this.state.song.src);
+    if (audio.src !== this.state.song.src) {
+      this.state.song.pause();
+      Promise.resolve(this.setState({
+        song: audio,
+      }))
+      .then(() => {
+        this.state.song.play();
+      })
+    }
     if (!this.state.playing) {
       Promise.resolve(this.setState({
         song: audio,
