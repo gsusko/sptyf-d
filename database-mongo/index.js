@@ -12,7 +12,7 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  id: String,
+  id: {type: String, unique: true},
   name: String,
   popularity: Number,
   artists: Array,

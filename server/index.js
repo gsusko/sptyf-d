@@ -24,7 +24,6 @@ app.post('/items', function(req, res) {
     body = JSON.parse(body);
     var songs = fetch.getSpotifySongs(body.term);
     res.send(songs);
-    // res.send(songs);
   });
 });
 app.get('/items', function (req, res) {
