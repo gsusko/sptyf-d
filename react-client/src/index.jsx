@@ -19,8 +19,42 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // this.handleTrackSearch('swimming pools');
-    this.retrieve('Swimming Pools');
+    this.handleTrackSearch('swimming pools');
+    // this.retrieve('Swimming Pools');
+    if (annyang) {
+      var context = this;
+      var commands = {
+        'stop': function () {
+          context.handleStopButton();
+        },
+        'play *song': function (song) {
+          console.log(song);
+          if (song === 'first song') {
+            var url = context.state.items[0].preview_url;
+            context.handlePlayButton(url);
+          } else if (song === 'second song') {
+            var url = context.state.items[1].preview_url;
+            context.handlePlayButton(url);
+          } else if (song === 'third song') {
+            var url = context.state.items[2].preview_url;
+            context.handlePlayButton(url);
+          } else if (song === 'fourth song') {
+            var url = context.state.items[3].preview_url;
+            context.handlePlayButton(url);
+          } else if (song === 'fifth song') {
+            var url = context.state.items[4].preview_url;
+            context.handlePlayButton(url);
+          }
+        },
+        'search for *song': function (song) {
+          console.log('I made it!')
+          console.log(song);
+          context.handleTrackSearch(song);
+        },
+      };
+      annyang.addCommands(commands);
+      annyang.start();
+    }
   }
 
   retrieve(term) {
@@ -116,7 +150,26 @@ class App extends React.Component {
       })
     }
   }
-
+  handleVoiceButton() {
+    // if (annyang) {
+    //   var context = this;
+    //   var commands = {
+    //     'stop': function () {
+    //       this.handleStopButton();
+    //     },
+    //       'play *song': function (song) {
+    //
+    //       context.handlePlayButton(song);
+    //     },
+    //       'search for *song': function (song) {
+    //       console.log('I made it!')
+    //       context.handleTrackSearch(song);
+    //     },
+    //   };
+    //   annyang.addCommands(commands);
+    //   annyang.start();
+    // }
+  }
   handlePauseButton() {
     if (this.state.playing) {
       Promise.resolve(this.setState({
@@ -153,7 +206,7 @@ class App extends React.Component {
       <div>
       <h1>Spotify Player</h1>
       <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
-      <div><Voice/></div>
+      <div><Voice handleVoiceButton={this.handleVoiceButton.bind(this)}/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
     </div>
   )

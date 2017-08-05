@@ -22,7 +22,7 @@ const getSpotifySongs = function(query) {
   rp(options)
     .then(songs => {
       songs = JSON.parse(songs).tracks.items;
-      // console.log(songs);
+      console.log(songs);
       db.save(songs);
     });
 

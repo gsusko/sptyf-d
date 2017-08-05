@@ -2,7 +2,7 @@ import React from 'react';
 
 const Voice = (props) => (
   <div className="voice-bar">
-    <button>
+    <button onClick={() => {props.handleVoiceButton()}}>
       <span>Voice</span>
     </button>
   </div>
