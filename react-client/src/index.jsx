@@ -19,7 +19,36 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.handleTrackSearch('swimming pools');
+    // this.handleTrackSearch('swimming pools');
+    this.retrieve('Swimming Pools');
+  }
+
+  retrieve(term) {
+    var context = this;
+    var results;
+    $.ajax({
+      url: '/items',
+      method: 'GET',
+      data: {
+        term: term
+      },
+      contentType: 'application/json',
+      success: function(data) {
+        results = data.slice(0, 5);
+        context.setState({
+          items: results
+        })
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  onEnter(event) {
+    if (event.keyCode === 13) {
+      this.handleTrackSearch(event.target.value);
+    }
   }
 
   handleTrackSearch(query) {
@@ -123,7 +152,7 @@ class App extends React.Component {
     return (
       <div>
       <h1>Spotify Player</h1>
-      <div><Search handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
+      <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
       <div><Voice/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
     </div>

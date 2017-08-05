@@ -4,6 +4,7 @@ var fetch = require('../helpers/spotifyFetcher.js');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 // var items = require('../database-mysql');
 var items = require('../database-mongo');
+// var item = require('../database-mongo/index.js');
 
 var app = express();
 
@@ -18,7 +19,7 @@ app.post('/items', function(req, res) {
   var body = '';
   req.on('data', (chunk) => {
     body += chunk;
-    console.log(body);
+    // console.log(body);
   });
   req.on('end', () => {
     body = JSON.parse(body);
@@ -27,13 +28,25 @@ app.post('/items', function(req, res) {
   });
 });
 app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
+  console.log(req.query.term)
+  items.item.
+  find({}).
+  where('name').equals(req.query.term).
+  sort({'popularity': -1}).
+  exec((err, data) => {
+    if (err) {
+      console.log(err);
     } else {
       res.json(data);
     }
   });
+  // items.selectAll(function(err, data) {
+  //   if(err) {
+  //     res.sendStatus(500);
+  //   } else {
+  //     res.json(data);
+  //   }
+  // });
 });
 
 app.listen(3000, function() {

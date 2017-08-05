@@ -12,11 +12,12 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  id: {type: String, unique: true},
+  id: {type:String},
   name: String,
   popularity: Number,
   artists: Array,
-  preview_url: String
+  preview_url: String,
+  album: Object
 });
 
 var Item = mongoose.model('Item', itemSchema);
@@ -47,3 +48,4 @@ var selectAll = function(callback) {
 
 module.exports.selectAll = selectAll;
 module.exports.save = save;
+module.exports.item = Item;
