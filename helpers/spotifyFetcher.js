@@ -1,11 +1,10 @@
 const request = require('request');
 const rp = require('request-promise');
-const $ = require('jquery');
-// const db = require('../database/index.js');
+const db = require('../database-mongo/index.js');
 
 const getSpotifySongs = function(query) {
   var url = `https://api.spotify.com/v1/search/?q=${query}&type=track&limit=20`
-  var accessToken = "BQBU7THDe6vNdvOjmyte9OM_uSQOeqbBDzZvbTNmjQRDH5Q3TrJj9AOd0nGfWq89O1rB1dlk0oP3lixEI7ed9C-r0xeZTwQyC2HRjm1fcx7EPzP7gzGVLGfX32Gk7_zYCs_M3gWwkdeQ4a8";
+  var accessToken = "BQBA3wOgTPMaG3HHak04xp0Hd82OTvdFmjpMYW-IWS4yBtOSawHsn_KDkCFJImrLu2BqCCdvUvMpiEizk701W14_6XvuXXO2ojcXHJUhbTiDtQJUuwqC4Xdvgh-o5UDaHK1OoDcT98BoPFI";
   var options = {
     url: url,
     headers: {
@@ -13,18 +12,18 @@ const getSpotifySongs = function(query) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   }
-  request.get(options, function (error, response, body) {
-    console.log(options)
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
-    console.log('body:', body);
-    console.log(JSON.parse(body))
-    // db.save(JSON.parse(body));
-  });
-  // rp(options)
-  //   .then(songs => {
-  //       console.log('User has %d songs', songs.length);
-  //   });
+  // request.get(options, function (error, response, body) {
+  //   console.log(options)
+  //   console.log('error:', error);
+  //   console.log('statusCode:', response && response.statusCode);
+  //   console.log('body:', body);
+  //   console.log(JSON.parse(body))
+  // });
+  rp(options)
+    .then(songs => {
+      songs = JSON.parse(songs).tracks.items;
+      db.save(songs);
+    });
 
 }
 module.exports.getSpotifySongs = getSpotifySongs;

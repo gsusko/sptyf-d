@@ -33,7 +33,7 @@ class App extends React.Component {
       }
     });
 
-    var accessToken = "BQBU7THDe6vNdvOjmyte9OM_uSQOeqbBDzZvbTNmjQRDH5Q3TrJj9AOd0nGfWq89O1rB1dlk0oP3lixEI7ed9C-r0xeZTwQyC2HRjm1fcx7EPzP7gzGVLGfX32Gk7_zYCs_M3gWwkdeQ4a8";
+    var accessToken = "BQBA3wOgTPMaG3HHak04xp0Hd82OTvdFmjpMYW-IWS4yBtOSawHsn_KDkCFJImrLu2BqCCdvUvMpiEizk701W14_6XvuXXO2ojcXHJUhbTiDtQJUuwqC4Xdvgh-o5UDaHK1OoDcT98BoPFI";
     var context = this;
     $.ajax({
         url: 'https://api.spotify.com/v1/search/',
@@ -47,6 +47,9 @@ class App extends React.Component {
        },
         success: function (data) {
           var items = data.tracks.items;
+          if (items.length === 0) {
+            alert('no songs with that query!')
+          }
           var results = [];
           items.forEach(function(item) {
             if (item.preview_url && results.length < 5) {

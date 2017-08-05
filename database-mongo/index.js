@@ -12,11 +12,28 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+  id: String,
+  name: String,
+  popularity: Number,
+  artists: Array,
+  preview_url: String
 });
 
 var Item = mongoose.model('Item', itemSchema);
+
+let save = (songs) => {
+  songs.forEach(function(song) {
+    var newSong = new Item(song);
+    newSong.save((err, newSong) => {
+      if (err) {
+        throw err;
+      }
+    })
+    .then(newSong => {
+      resolve(newSong);
+    });
+  });
+}
 
 var selectAll = function(callback) {
   Item.find({}, function(err, items) {
@@ -29,3 +46,4 @@ var selectAll = function(callback) {
 };
 
 module.exports.selectAll = selectAll;
+module.exports.save = save;

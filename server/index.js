@@ -23,7 +23,8 @@ app.post('/items', function(req, res) {
   req.on('end', () => {
     body = JSON.parse(body);
     var songs = fetch.getSpotifySongs(body.term);
-    // res.send(repos);
+    res.send(songs);
+    // res.send(songs);
   });
 });
 app.get('/items', function (req, res) {
