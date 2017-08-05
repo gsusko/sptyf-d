@@ -1,0 +1,37 @@
+body {
+  background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/pop-music_w1ussmtxs__F0000.png');
+}
+
+#app {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  z-index: 15;
+  top: 15%;
+  left: 50%;
+
+  margin: -100px 0 0 -200px;
+}
+
+#rendering {
+  margin-right: -10px;
+  margin-left: -10px;
+  /*background: url('http://bsnscb.com/data/out/203/38993159-turntable-wallpapers.jpg');*/
+  /*#rcorners3 {
+    border-radius: 25px;
+    background: url(paper.gif);
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}*/
+}
+
+#container {
+    width: auto; /*can be in percentage also.*/
+    height: auto;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}

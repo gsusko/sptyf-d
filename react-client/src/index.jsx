@@ -182,7 +182,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id="rendering">
       <h1>Spotify Player</h1>
       <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
