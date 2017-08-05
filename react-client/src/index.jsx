@@ -4,6 +4,7 @@ import $ from 'jquery';
 import List from './components/List.jsx';
 import Search from './components/Search.jsx';
 import Voice from './components/Voice.jsx';
+const config = require('../../config.js')
 
 
 class App extends React.Component {
@@ -18,7 +19,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.handleTrackSearch('swimming');
+    this.handleTrackSearch('swimming pools');
   }
 
   handleTrackSearch(query) {
@@ -33,7 +34,6 @@ class App extends React.Component {
       }
     });
 
-    var accessToken = "BQBA3wOgTPMaG3HHak04xp0Hd82OTvdFmjpMYW-IWS4yBtOSawHsn_KDkCFJImrLu2BqCCdvUvMpiEizk701W14_6XvuXXO2ojcXHJUhbTiDtQJUuwqC4Xdvgh-o5UDaHK1OoDcT98BoPFI";
     var context = this;
     $.ajax({
         url: 'https://api.spotify.com/v1/search/',
@@ -43,22 +43,23 @@ class App extends React.Component {
             limit: 20
         },
         headers: {
-         'Authorization': 'Bearer ' + accessToken
+         'Authorization': 'Bearer ' + config.TOKEN
        },
         success: function (data) {
           var items = data.tracks.items;
           if (items.length === 0) {
-            alert('no songs with that query!')
+            alert('no songs with that search!');
+          } else {
+            var results = [];
+            items.forEach(function(item) {
+              if (item.preview_url && results.length < 5) {
+                results.push(item);
+              }
+            });
+            context.setState({
+              items: results
+            });
           }
-          var results = [];
-          items.forEach(function(item) {
-            if (item.preview_url && results.length < 5) {
-              results.push(item);
-            }
-          });
-          context.setState({
-            items: results
-          });
         }
     });
     document.getElementById('input').value = '';
