@@ -18,42 +18,47 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.handleTrackSearch('swimming pools');
+    this.handleTrackSearch('swimming');
   }
 
-  //search function
   handleTrackSearch(query) {
-    //call get request on API
-    var options = {
-      q: query,
-      artist: 'kendrick'
-    }
-    var accessToken = "BQA57VemVOXXNdcAQrKHLeLSSRS0rGUQKxMr-_ltNek0CbunJQWuz_rfFKU4dKVnhAi4hmMmP7IRb5pDUG7ZcB4kak-VDHXPhHXfxmdEm12pdv1Hr9meJLeMaB-VNZJ7yfStLj2GQ3T5WcE";
+    $.post({
+      url: '/items',
+      data: JSON.stringify({term: query}),
+      dataType: 'application/json',
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(data) {
+      }
+    });
+
+    var accessToken = "BQBU7THDe6vNdvOjmyte9OM_uSQOeqbBDzZvbTNmjQRDH5Q3TrJj9AOd0nGfWq89O1rB1dlk0oP3lixEI7ed9C-r0xeZTwQyC2HRjm1fcx7EPzP7gzGVLGfX32Gk7_zYCs_M3gWwkdeQ4a8";
     var context = this;
     $.ajax({
-        url: 'https://api.spotify.com/v1/search',
+        url: 'https://api.spotify.com/v1/search/',
         data: {
-            q: query,
+            query: query,
             type: 'track',
-            preview_url: 'true',
             limit: 20
         },
         headers: {
          'Authorization': 'Bearer ' + accessToken
        },
         success: function (data) {
-            var items = data.tracks.items;
-            var results = [];
-            items.forEach(function(item) {
-              if (item.preview_url && results.length < 5) {
-                results.push(item);
-              }
-            });
-            context.setState({
-              items: results
-            });
+          var items = data.tracks.items;
+          var results = [];
+          items.forEach(function(item) {
+            if (item.preview_url && results.length < 5) {
+              results.push(item);
+            }
+          });
+          context.setState({
+            items: results
+          });
         }
     });
+    document.getElementById('input').value = '';
   }
 
   handlePlayButton(url) {
@@ -109,20 +114,6 @@ class App extends React.Component {
       })
     }
   }
-  // retrieve() {
-  //   $.ajax({
-  //     url: '/items',
-  //     success: (data) => {
-  //       console.log('success');
-  //       // this.setState({
-  //       //   items: data
-  //       // })
-  //     },
-  //     error: (err) => {
-  //       console.log('err', err);
-  //     }
-  //   });
-  // }
 
   render () {
     return (

@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var fetch = require('../helpers/spotifyFetcher.js');
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 // var items = require('../database-mysql');
 var items = require('../database-mongo');
@@ -13,6 +14,18 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));
 
+app.post('/items', function(req, res) {
+  var body = '';
+  req.on('data', (chunk) => {
+    body += chunk;
+    console.log(body);
+  });
+  req.on('end', () => {
+    body = JSON.parse(body);
+    var songs = fetch.getSpotifySongs(body.term);
+    // res.send(repos);
+  });
+});
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
     if(err) {
