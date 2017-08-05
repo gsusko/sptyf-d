@@ -28,7 +28,6 @@ class App extends React.Component {
           context.handleStopButton();
         },
         'play *song': function (song) {
-          console.log(song);
           if (song === 'first song') {
             var url = context.state.items[0].preview_url;
             context.handlePlayButton(url);
@@ -47,8 +46,6 @@ class App extends React.Component {
           }
         },
         'search for *song': function (song) {
-          console.log('I made it!')
-          console.log(song);
           context.handleTrackSearch(song);
         },
       };
@@ -150,26 +147,7 @@ class App extends React.Component {
       })
     }
   }
-  handleVoiceButton() {
-    // if (annyang) {
-    //   var context = this;
-    //   var commands = {
-    //     'stop': function () {
-    //       this.handleStopButton();
-    //     },
-    //       'play *song': function (song) {
-    //
-    //       context.handlePlayButton(song);
-    //     },
-    //       'search for *song': function (song) {
-    //       console.log('I made it!')
-    //       context.handleTrackSearch(song);
-    //     },
-    //   };
-    //   annyang.addCommands(commands);
-    //   annyang.start();
-    // }
-  }
+
   handlePauseButton() {
     if (this.state.playing) {
       Promise.resolve(this.setState({
@@ -206,7 +184,6 @@ class App extends React.Component {
       <div>
       <h1>Spotify Player</h1>
       <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
-      <div><Voice handleVoiceButton={this.handleVoiceButton.bind(this)}/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
     </div>
   )
