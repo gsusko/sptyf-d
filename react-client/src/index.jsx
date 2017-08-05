@@ -20,7 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.handleTrackSearch('swimming pools');
-    // this.retrieve('Swimming Pools');
+    this.retrieve('Swimming Pools');
     if (annyang) {
       var context = this;
       var commands = {
@@ -28,19 +28,20 @@ class App extends React.Component {
           context.handleStopButton();
         },
         'play *song': function (song) {
-          if (song === 'first song') {
+          console.log(song);
+          if (song.toLowerCase() === 'first song' || song.toLowerCase() === 'first') {
             var url = context.state.items[0].preview_url;
             context.handlePlayButton(url);
-          } else if (song === 'second song') {
+          } else if (song.toLowerCase() === 'second song' || song.toLowerCase() === 'second') {
             var url = context.state.items[1].preview_url;
             context.handlePlayButton(url);
-          } else if (song === 'third song') {
+          } else if (song.toLowerCase() === 'third song' || song.toLowerCase() === 'third') {
             var url = context.state.items[2].preview_url;
             context.handlePlayButton(url);
-          } else if (song === 'fourth song') {
+          } else if (song.toLowerCase() === 'fourth song' || song.toLowerCase() === 'fourth') {
             var url = context.state.items[3].preview_url;
             context.handlePlayButton(url);
-          } else if (song === 'fifth song') {
+          } else if (song.toLowerCase() === 'fifth song' || song.toLowerCase() === 'fifth') {
             var url = context.state.items[4].preview_url;
             context.handlePlayButton(url);
           }
@@ -66,9 +67,9 @@ class App extends React.Component {
       contentType: 'application/json',
       success: function(data) {
         results = data.slice(0, 5);
-        context.setState({
-          items: results
-        })
+        // context.setState({
+        //   items: results
+        // })
       },
       error: (error) => {
         console.log(error);
