@@ -25,7 +25,7 @@ class App extends React.Component {
       var context = this;
       var commands = {
         'pause': function () {
-          context.handleStopButton();
+          context.handlePauseButton();
           annyang.start();
         },
         'play *song': function (song) {
@@ -47,15 +47,24 @@ class App extends React.Component {
             context.handlePlayButton(url);
           } else {
             for (var i = 0; i < context.state.items.length; i++) {
-              if (context.state.items[i].name.includes(song)) {
+              if (context.state.items[i].name.toLowerCase().includes(song.toLowerCase())) {
                 var url = context.state.items[i].preview_url;
                 context.handlePlayButton(url);
                 break;
               }
             }
           }
-
           annyang.start();
+        },
+        'artist play *artist': function(artist) {
+          console.log(artist);
+          for (var i = 0; i < context.state.items.length; i++) {
+            if (context.state.items[i].artists[0].name.toLowerCase().includes(artist.toLowerCase())) {
+              var url = context.state.items[i].preview_url;
+              context.handlePlayButton(url);
+              break;
+            }
+          }
         },
         'search for *song': function (song) {
           console.log(song)
@@ -63,6 +72,7 @@ class App extends React.Component {
           annyang.start();
         },
         'search and play *song': function(song) {
+          // context.handlePauseButton();
           context.handleTrackSearch(song);
           setTimeout(() => {var url = context.state.items[0].preview_url; context.handlePlayButton(url)}, 1300);
 
