@@ -24,14 +24,13 @@ app.post('/items', function(req, res) {
     console.log(body);
     db.save(body);
     // var songs = fetch.getSpotifySongs(body.term);
-    // res.send(songs);
+    res.send(body);
   });
 });
 app.get('/items', function (req, res) {
   console.log(req.query.term)
   items.item.
   find({}).
-  where('name').equals(req.query.term).
   sort({'popularity': -1}).
   exec((err, data) => {
     if (err) {

@@ -2,9 +2,12 @@
 var $ = require('jquery');
 module.exports.speech = function(context) {
   if (annyang) {
-    console.log(context);
     var commands = {
       'pause': function () {
+        context.handlePauseButton();
+        annyang.start();
+      },
+      'resume': function () {
         context.handlePauseButton();
         annyang.start();
       },
@@ -65,14 +68,42 @@ module.exports.speech = function(context) {
               data: JSON.stringify(results),
               dataType: 'application/json',
               success: function(data) {
-                // console.log(data);
+                // console.log('success');
               },
               error: function(data) {
+                // console.log('error')
               }
             });
             break;
           }
         }
+      },
+      'show favorites': function() {
+        $.get({
+          url: '/items',
+          contentType: 'application/json',
+          success: function(data) {
+            var results = [];
+            for (var i = 0; i < data.length; i++) {
+              var currentId = data[i].id;
+              var exists = false;
+              for (var j = 0; j < results.length; j++) {
+                if (results[j].id === currentId) {
+                  exists = true;
+                }
+              }
+              if (!exists && results.length < 5) {
+                results.push(data[i]);
+              }
+            }
+            context.setState({
+              items: results
+            })
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        })
       },
       ':nomatch': function (message) {
         console.log("sorry, I don't understand");

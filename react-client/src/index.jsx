@@ -20,8 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.handleTrackSearch('swimming pools');
-    // this.retrieve('Swimming Pools');
+    this.handleTrackSearch('The Chain');
     var annyang = ann.speech;
     annyang(this);
   }
