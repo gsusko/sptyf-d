@@ -27,7 +27,8 @@ app.post('/items', function(req, res) {
   });
 });
 app.get('/items', function (req, res) {
-  // console.log(req.query.song)
+  // console.log(req);
+
   if (req.query.song) {
     items.item.
     find({}).
@@ -48,6 +49,17 @@ app.get('/items', function (req, res) {
             res.json(data);
           }
         });
+      }
+    });
+  } else if (req.query.term) {
+    items.item.
+    find({}).
+    sort({'_id': -1}).
+    exec((err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(data);
       }
     });
   } else {

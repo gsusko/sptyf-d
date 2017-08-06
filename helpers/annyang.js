@@ -5,12 +5,12 @@ module.exports.speech = function(context) {
     var commands = {
       'pause': function () {
         context.handlePauseButton();
-        document.getElementById('listener').innerHTML = '';
+        document.getElementById('listener').innerHTML = 'Paused';
         annyang.start();
       },
       'resume': function () {
         context.handlePauseButton();
-        document.getElementById('listener').innerHTML = 'resuming your song';
+        document.getElementById('listener').innerHTML = 'Resuming your song';
         annyang.start();
       },
       'stop': function () {
@@ -124,12 +124,70 @@ module.exports.speech = function(context) {
             }
             context.setState({
               items: results
-            })
+            });
           },
           error: function(data) {
             console.log(data);
           }
-        })
+        });
+        document.getElementById('listener').innerHTML = 'Here are your favorite songs based on popularity!';
+      },
+      'order by time': function() {
+        $.get({
+          url: '/items',
+          data: {
+            term: 'reorder'
+          },
+          contentType: 'application/json',
+          success: function(data) {
+            var results = [];
+            for (var i = 0; i < data.length; i++) {
+              var currentId = data[i].id;
+              var exists = false;
+              for (var j = 0; j < results.length; j++) {
+                if (results[j].id === currentId) {
+                  exists = true;
+                }
+              }
+              if (!exists && results.length < 5) {
+                results.push(data[i]);
+              }
+            }
+            context.setState({
+              items: results
+            });
+            document.getElementById('listener').innerHTML = 'Here are your favorite songs based on when they were added!'
+          },
+          error: function(data) {
+          }
+        });
+      },
+      'order by popularity': function () {
+        $.get({
+          url: '/items',
+          contentType: 'application/json',
+          success: function(data) {
+            var results = [];
+            for (var i = 0; i < data.length; i++) {
+              var currentId = data[i].id;
+              var exists = false;
+              for (var j = 0; j < results.length; j++) {
+                if (results[j].id === currentId) {
+                  exists = true;
+                }
+              }
+              if (!exists && results.length < 5) {
+                results.push(data[i]);
+              }
+            }
+            context.setState({
+              items: results
+            });
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
         document.getElementById('listener').innerHTML = 'Here are your favorite songs based on popularity!';
       },
       'remove *song': function(song) {
@@ -162,7 +220,6 @@ module.exports.speech = function(context) {
           }
         })
         document.getElementById('listener').innerHTML = song + ' has been removed from your favorites';
-
       },
       ':nomatch': function (message) {
         console.log("sorry, I don't understand");
