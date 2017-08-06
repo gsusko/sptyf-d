@@ -153,6 +153,7 @@ class App extends React.Component {
   render () {
     return (
       <div id="rendering">
+      <h4 id="listener"></h4>
       <h1 id="header">sptfy'd</h1>
       <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>

@@ -21,24 +21,47 @@ app.post('/items', function(req, res) {
   });
   req.on('end', () => {
     body = JSON.parse(body);
-    console.log(body);
+    body[0].name = body[0].name.toLowerCase();
     db.save(body);
-    // var songs = fetch.getSpotifySongs(body.term);
     res.send(body);
   });
 });
 app.get('/items', function (req, res) {
-  console.log(req.query.term)
-  items.item.
-  find({}).
-  sort({'popularity': -1}).
-  exec((err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  });
+  // console.log(req.query.song)
+  if (req.query.song) {
+    items.item.
+    find({}).
+    where('name').equals(req.query.song.toLowerCase()).
+    remove().
+    exec((err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // console.log(data);
+        items.item.
+        find({}).
+        sort({'popularity': -1}).
+        exec((err, data) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json(data);
+          }
+        });
+      }
+    });
+  } else {
+    items.item.
+    find({}).
+    sort({'popularity': -1}).
+    exec((err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(data);
+      }
+    });
+  }
   // items.selectAll(function(err, data) {
   //   if(err) {
   //     res.sendStatus(500);
