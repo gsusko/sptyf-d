@@ -21,7 +21,6 @@ class App extends React.Component {
   componentDidMount() {
     this.handleTrackSearch('swimming pools');
     // this.retrieve('Swimming Pools');
-    // this.handleArtistSearch('Kendrick')
     if (annyang) {
       var context = this;
       var commands = {
@@ -150,41 +149,6 @@ class App extends React.Component {
     document.getElementById('input').value = '';
   }
 
-  // handleArtistSearch(query) {
-  //   var context = this;
-  //   $.ajax({
-  //       url: `https://api.spotify.com/v1/artists/${query}/top-tracks`,
-  //       data: {
-  //           limit: 20,
-  //           country: 'US'
-  //       },
-  //       headers: {
-  //        'Authorization': 'Bearer ' + config.TOKEN
-  //      },
-  //       success: function (data) {
-  //         console.log(data);
-  //         // var items = data.tracks.items;
-  //         // if (items.length === 0) {
-  //         //   alert('no songs with that search!');
-  //         // } else {
-  //         //   var results = [];
-  //         //   items.forEach(function(item) {
-  //         //     if (item.preview_url && results.length < 5) {
-  //         //       results.push(item);
-  //         //     }
-  //         //   });
-  //         //   context.setState({
-  //         //     items: results
-  //         //   });
-  //         // }
-  //       },
-  //       error: function(err) {
-  //         console.log(err)
-  //       }
-  //   });
-  //   document.getElementById('input').value = '';
-  // }
-
   handlePlayButton(url) {
     var audio = new Audio(url);
     if (audio.src !== this.state.song.src) {
@@ -242,7 +206,7 @@ class App extends React.Component {
   render () {
     return (
       <div id="rendering">
-      <h1>Spotify Player</h1>
+      <h1 id="header">sptfy'd</h1>
       <div><Search onEnter={this.onEnter.bind(this)} handleTrackSearch={this.handleTrackSearch.bind(this)}/></div>
       <div><List items={this.state.items} handlePlayButton={this.handlePlayButton.bind(this)} handleStopButton={this.handleStopButton.bind(this)} handlePauseButton={this.handlePauseButton.bind(this)}/></div>
     </div>

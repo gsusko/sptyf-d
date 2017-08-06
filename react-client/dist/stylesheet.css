@@ -16,15 +16,18 @@ body {
 #rendering {
   margin-right: -10px;
   margin-left: -10px;
-  background-image: url('https://crackberry.com/sites/crackberry.com/files/styles/w325/public/images/wallpaper_20120310105241_9017444482.jpg?itok=wFchZ1aF');
+  /*background-image: url('https://crackberry.com/sites/crackberry.com/files/styles/w325/public/images/wallpaper_20120310105241_9017444482.jpg?itok=wFchZ1aF');*/
+  background-color: white;
   border-radius: 25px;
   background-position: left top;
   background-repeat: repeat;
+  border-style: solid;
+  border-color: grey;
   padding: 20px;
   width: 400px;
   height: 640px;
   text-align: center;
-  box-shadow: 10px 10px 5px #13138B;
+  box-shadow: 10px 10px 5px grey;
 }
 
 #listItems {
@@ -32,7 +35,14 @@ body {
 }
 
 #song {
-  color: white;
+  color: #0D810D;
+  font-family: arial;
+}
+
+#header {
+  color: #0D810D;
+  font-family: Georgia;
+  font-weight: bold;
 }
 
 .search {
