@@ -20,12 +20,14 @@ class App extends React.Component {
 
   componentDidMount() {
     this.handleTrackSearch('swimming pools');
-    this.retrieve('Swimming Pools');
+    // this.retrieve('Swimming Pools');
+    // this.handleArtistSearch('Kendrick')
     if (annyang) {
       var context = this;
       var commands = {
-        'stop': function () {
+        'pause': function () {
           context.handleStopButton();
+          annyang.start();
         },
         'play *song': function (song) {
           console.log(song);
@@ -44,11 +46,33 @@ class App extends React.Component {
           } else if (song.toLowerCase() === 'fifth song' || song.toLowerCase() === 'fifth') {
             var url = context.state.items[4].preview_url;
             context.handlePlayButton(url);
+          } else {
+            for (var i = 0; i < context.state.items.length; i++) {
+              if (context.state.items[i].name.includes(song)) {
+                var url = context.state.items[i].preview_url;
+                context.handlePlayButton(url);
+                break;
+              }
+            }
           }
+
+          annyang.start();
         },
         'search for *song': function (song) {
+          console.log(song)
           context.handleTrackSearch(song);
+          annyang.start();
         },
+        'search and play *song': function(song) {
+          context.handleTrackSearch(song);
+          setTimeout(() => {var url = context.state.items[0].preview_url; context.handlePlayButton(url)}, 1300);
+
+
+        },
+        ':nomatch': function (message) {
+          console.log("sorry, I don't understand");
+        }
+
       };
       annyang.addCommands(commands);
       annyang.start();
@@ -89,7 +113,7 @@ class App extends React.Component {
       data: JSON.stringify({term: query}),
       dataType: 'application/json',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
       },
       error: function(data) {
       }
@@ -125,6 +149,41 @@ class App extends React.Component {
     });
     document.getElementById('input').value = '';
   }
+
+  // handleArtistSearch(query) {
+  //   var context = this;
+  //   $.ajax({
+  //       url: `https://api.spotify.com/v1/artists/${query}/top-tracks`,
+  //       data: {
+  //           limit: 20,
+  //           country: 'US'
+  //       },
+  //       headers: {
+  //        'Authorization': 'Bearer ' + config.TOKEN
+  //      },
+  //       success: function (data) {
+  //         console.log(data);
+  //         // var items = data.tracks.items;
+  //         // if (items.length === 0) {
+  //         //   alert('no songs with that search!');
+  //         // } else {
+  //         //   var results = [];
+  //         //   items.forEach(function(item) {
+  //         //     if (item.preview_url && results.length < 5) {
+  //         //       results.push(item);
+  //         //     }
+  //         //   });
+  //         //   context.setState({
+  //         //     items: results
+  //         //   });
+  //         // }
+  //       },
+  //       error: function(err) {
+  //         console.log(err)
+  //       }
+  //   });
+  //   document.getElementById('input').value = '';
+  // }
 
   handlePlayButton(url) {
     var audio = new Audio(url);
