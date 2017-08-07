@@ -52,6 +52,17 @@ app.get('/items', function (req, res) {
         res.json(data);
       }
     });
+  } else if(req.query.find) {
+    items.item.
+    find({}).
+    where('name').equals(req.query.find.toLowerCase()).
+    exec((err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(data);
+      }
+    });
   } else {
     items.item.
     find({}).

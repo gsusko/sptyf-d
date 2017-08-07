@@ -186,6 +186,27 @@ module.exports.speech = function(context) {
         });
         document.getElementById('listener').innerHTML = 'Here are your favorite songs based on popularity!';
       },
+      'find *song': function(song) {
+        $.get({
+          url: '/items',
+          contentType: 'application/json',
+          data: {
+            find: song
+          },
+          success: function(data) {
+            if (data.length > 0) {
+              var results = [data[0]];
+            }
+            context.setState({
+              items: results
+            });
+            document.getElementById('listener').innerHTML = context.state.items[0].name + ' by ' + context.state.items[0].artists[0].name + ' is on your favorites list!';
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+      },
       'remove *song': function(song) {
         $.get({
           url: '/items',
@@ -214,7 +235,7 @@ module.exports.speech = function(context) {
           error: function(data) {
             console.log(data);
           }
-        })
+        });
         document.getElementById('listener').innerHTML = song + ' has been removed from your favorites';
       },
       ':nomatch': function (message) {
