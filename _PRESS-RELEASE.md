@@ -17,29 +17,43 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 ## Heading ##
-  > Spotify Web Player
+  > Voice Activated Spotify Web Player
 
 
 ## Sub-Heading ##
-  > A Spotify search and Player
+  > Search and play songs using just your voice!
 
 ## Summary ##
-  > By using this, you'll be able to use voice commands to play songs.  You'll also be able to search for songs and play them individually with the search bar.
+  > By using this, you'll be able to use voice commands to search and play songs as well as manage your favorites list.
 
 ## Problem ##
-  > Provides an easy, hands free way to play music from your laptop.
+  > My hands always have something in them when I'm trying to search for music!
 
 ## Solution ##
-  > Provides voice commands to play and pause music.
+  > Provides an easy, hands free way to play music from your laptop.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > Be hands free and keep that keyboard clean!
 
 ## How to Get Started ##
-  > Either use the search bar or click the voice command button to find and play your music.
+  > Just speak to the app! It listens to you as soon as it's loaded.
+  Commands:
+    Play *song* (of the 5 choices on screen)
+    Search for *song*
+    Search and play *song* (plays first song after search)
+    Play first (second, third...) song
+    Favorite *song* (of the 5 choices on screen)
+    Artist play *artist* (of the 5 choices on screen)
+    Show favorites
+    Order by time (reorder favorites)
+    Order by popularity (reorder favorites -- default)
+    Remove *song* (removes from favorites)
+    Pause
+    Resume
+    Stop
 
 ## Customer Quote ##
-  > This is a great product that allowed me to use voice instead of typing to play songs of my choice.
+  > With sptfy'd I'll never need to use my hands again!
 
 ## Closing and Call to Action ##
-  > Head to FILL IN to test it out!
+  > Head to sptfy'd to test it out!

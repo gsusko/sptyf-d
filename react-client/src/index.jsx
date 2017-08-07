@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Search from './components/Search.jsx';
-import Voice from './components/Voice.jsx';
 const config = require('../../config.js');
 const ann = require('../../helpers/annyang.js');
 
@@ -21,30 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.handleTrackSearch('The Chain');
-    var annyang = ann.speech;
-    annyang(this);
-  }
-
-  retrieve(term) {
-    var context = this;
-    var results;
-    $.ajax({
-      url: '/items',
-      method: 'GET',
-      data: {
-        term: term
-      },
-      contentType: 'application/json',
-      success: function(data) {
-        results = data.slice(0, 5);
-        // context.setState({
-        //   items: results
-        // })
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    ann.speech(this);
   }
 
   onEnter(event) {
@@ -54,17 +30,6 @@ class App extends React.Component {
   }
 
   handleTrackSearch(query) {
-    // $.post({
-    //   url: '/items',
-    //   data: JSON.stringify({term: query}),
-    //   dataType: 'application/json',
-    //   success: function(data) {
-    //     // console.log(data);
-    //   },
-    //   error: function(data) {
-    //   }
-    // });
-
     var context = this;
     $.ajax({
         url: 'https://api.spotify.com/v1/search/',

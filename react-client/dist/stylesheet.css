@@ -1,5 +1,3 @@
-body {
-}
 
 #app {
   position: absolute;
@@ -23,7 +21,6 @@ body {
   border-color: grey;
   padding: 20px;
   width: 400px;
-  height: 65r0px;
   text-align: center;
   box-shadow: 10px 10px 5px grey;
 }
@@ -57,5 +54,5 @@ body {
 }
 
 #input {
-  width: 290px;
+  width: 320px;
 }

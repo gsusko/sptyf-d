@@ -12,13 +12,6 @@ const getSpotifySongs = function(query) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   }
-  // request.get(options, function (error, response, body) {
-  //   console.log(options)
-  //   console.log('error:', error);
-  //   console.log('statusCode:', response && response.statusCode);
-  //   console.log('body:', body);
-  //   console.log(JSON.parse(body))
-  // });
   rp(options)
     .then(songs => {
       songs = JSON.parse(songs).tracks.items;

@@ -1,18 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fetch = require('../helpers/spotifyFetcher.js');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
 var items = require('../database-mongo');
 var db = require ('../database-mongo/index.js');
 var app = express();
 
-// UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
-
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
 
 app.post('/items', function(req, res) {
   var body = '';
@@ -27,8 +20,6 @@ app.post('/items', function(req, res) {
   });
 });
 app.get('/items', function (req, res) {
-  // console.log(req);
-
   if (req.query.song) {
     items.item.
     find({}).
@@ -38,7 +29,6 @@ app.get('/items', function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        // console.log(data);
         items.item.
         find({}).
         sort({'popularity': -1}).
@@ -74,13 +64,6 @@ app.get('/items', function (req, res) {
       }
     });
   }
-  // items.selectAll(function(err, data) {
-  //   if(err) {
-  //     res.sendStatus(500);
-  //   } else {
-  //     res.json(data);
-  //   }
-  // });
 });
 
 app.listen(3000, function() {

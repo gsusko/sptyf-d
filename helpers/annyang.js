@@ -1,4 +1,3 @@
-// var items = require('../database-mongo/index.js');
 var $ = require('jquery');
 module.exports.speech = function(context) {
   if (annyang) {
@@ -20,7 +19,6 @@ module.exports.speech = function(context) {
       },
       'play *song': function (song) {
         console.log(song);
-        // document.getElementById('listener').innerHTML = 'Playing ' + song;
         if (song.toLowerCase() === 'first song' || song.toLowerCase() === 'first') {
           var url = context.state.items[0].preview_url;
           context.handlePlayButton(url);
@@ -93,10 +91,8 @@ module.exports.speech = function(context) {
               data: JSON.stringify(results),
               dataType: 'application/json',
               success: function(data) {
-                // console.log('success');
               },
               error: function(data) {
-                // console.log('error')
               }
             });
             document.getElementById('listener').innerHTML = 'Adding ' + context.state.items[i].name + ' by ' + context.state.items[i].artists[0].name + ' to your favorites';
