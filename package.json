@@ -1,7 +1,6 @@
 {
-  "name": "Spty'd",
+  "name": "sptfy'd",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
@@ -24,9 +23,19 @@
     "jquery": "^3.1.1",
     "mongoose": "^4.8.6",
     "mysql": "^2.13.0",
+    "nodemon": "^1.12.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsusko/sptyf-d.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gsusko/sptyf-d/issues"
+  },
+  "homepage": "https://github.com/gsusko/sptyf-d#readme",
+  "description": ""
 }
