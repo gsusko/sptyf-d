@@ -39,7 +39,7 @@ class App extends React.Component {
             limit: 20
         },
         headers: {
-         'Authorization': 'Bearer ' + config.TOKEN
+         'Authorization':'Bearer ' + process.env.TOKEN || 'Bearer ' + config.TOKEN
        },
         success: function (data) {
           var items = data.tracks.items;
