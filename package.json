@@ -1,5 +1,5 @@
 {
-  "name": "github-fetcher-fullstack-v2",
+  "name": "Spty'd",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "server-dev": "nodemon server/index.js",
     "start": "npm run react-dev & npm run server-dev"
   },
-  "author": "Beth Johnson",
+  "author": "Greg Susko",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
