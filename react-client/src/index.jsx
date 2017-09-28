@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Search from './components/Search.jsx';
-const config = require('../../config.js');
+// const config = require('../../config.js');
 const ann = require('../../helpers/annyang.js');
 
 
