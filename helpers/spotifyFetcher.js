@@ -8,7 +8,7 @@ const getSpotifySongs = function(query) {
   var options = {
     url: url,
     headers: {
-      'Authorization': 'Bearer ' + config.TOKEN,
+      'Authorization': 'Bearer ' + process.env.TOKEN || 'Bearer ' + config.TOKEN,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   }
