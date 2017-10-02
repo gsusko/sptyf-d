@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Search from './components/Search.jsx';
-// const config = require('../../config.js');
+const config = require('../../config.js');
 const ann = require('../../helpers/annyang.js');
 
 
@@ -39,7 +39,7 @@ class App extends React.Component {
             limit: 20
         },
         headers: {
-         'Authorization':'Bearer ' + process.env.TOKEN || 'Bearer ' + config.TOKEN
+         'Authorization':'Bearer ' + config.TOKEN
        },
         success: function (data) {
           var items = data.tracks.items;

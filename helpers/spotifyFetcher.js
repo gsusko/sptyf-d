@@ -1,14 +1,14 @@
 const request = require('request');
 const rp = require('request-promise');
 const db = require('../database-mongo/index.js');
-// const config = require('../config.js');
+const config = require('../config.js');
 
 const getSpotifySongs = function(query) {
   var url = `https://api.spotify.com/v1/search/?q=${query}&type=track&limit=20`
   var options = {
     url: url,
     headers: {
-      'Authorization': 'Bearer ' + process.env.TOKEN || 'Bearer ' + config.TOKEN,
+      'Authorization': 'Bearer ' + config.TOKEN,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   }
