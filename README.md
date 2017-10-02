@@ -5,4 +5,5 @@ A voice command Spotify Web Player.  Use your voice to play, pause, search and f
 Run these commands to begin:
 
 npm install
+
 npm start
