@@ -2,7 +2,7 @@
 
 A voice command Spotify Web Player.  Use your voice to play, pause, search and favorite songs.
 
-##Run these commands to begin
+## Run these commands to begin
 
 - npm install
 - npm start
@@ -10,7 +10,7 @@ A voice command Spotify Web Player.  Use your voice to play, pause, search and f
 To get access to Spotify, first make a copy of the example.config file and remove example from the name.  After that go to https://developer.spotify.com/web-api/console/get-search-item/ to get a new token and replace the placeholder in the config file.
 
 
-##Commands
+## Commands
 - Play *song* (of the 5 choices on screen)
 - Search for *song*
 - Search and play *song* (plays first song after search)
